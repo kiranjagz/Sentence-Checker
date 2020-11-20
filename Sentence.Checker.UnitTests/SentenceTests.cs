@@ -22,7 +22,7 @@ namespace Sentence.Checker.UnitTests
 
         [TestCase("I Like eating apples", "ilikeeatingapples", "ileap")]
         [TestCase("I Like eating oranges", "ilikeeatingoranges", "ieang")]
-        public void CheckThatASentenceDoesNotContainDuplicates(string sentence, string formattedSentence, string expectedResult)
+        public void TestReturnLettersThatAreDuplicatesInASentence(string sentence, string formattedSentence, string expectedResult)
         {
             _customSentenceFormatter.Setup(m => m.FormatWordsInSentence(sentence)).Returns(formattedSentence);
 

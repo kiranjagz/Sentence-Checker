@@ -19,7 +19,7 @@ namespace Sentence.Checker.UnitTests
 
         [TestCase("I like eating apples", "ilikeeatingapples")]
         [TestCase("I like eating oranges", "ilikeeatingoranges")]
-        public void SentenceHasNoSpacesAndInLowerCase(string sentence, string expectedResult)
+        public void TestASentenceHasNoSpacesAndInLowerCase(string sentence, string expectedResult)
         {
             var result = _customSentenceFormatter.FormatWordsInSentence(sentence);
 
