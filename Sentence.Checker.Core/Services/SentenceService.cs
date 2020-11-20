@@ -25,9 +25,9 @@ namespace Sentence.Checker.Core.Services
 
             var duplicatesInArray = group.Where(g => g.Count() > 1).Select(g => g.Key).ToList();
 
-            var duplicateLetters = string.Join(",", duplicatesInArray);
+            var duplicateLetters = string.Join("", duplicatesInArray);
 
-            return new SentenceModel { Output = $"Found the following duplicates: {duplicateLetters}" };
+            return new SentenceModel { Output = $"Found the following duplicates: {duplicateLetters}", Duplicates = duplicateLetters };
         }
     }
 }

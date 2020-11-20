@@ -7,5 +7,6 @@ namespace Sentence.Checker.Core.Services.Model
     public class SentenceModel : ISentenceModel
     {
         public string Output { get; set; }
+        public string Duplicates { get; set; }
     }
 }

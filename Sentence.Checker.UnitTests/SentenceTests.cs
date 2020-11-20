@@ -7,6 +7,8 @@ namespace Sentence.Checker.UnitTests
 {
     public class SentenceTests
     {
+        // I added the custom sentence logic to display test cases using moqs, and the the use of Ioc principle.
+        // Sorry if this is overkill.
         private Mock<ICustomSentenceFormatter> _customSentenceFormatter;
         private ISentenceService _sentenceService;
 
@@ -19,14 +21,14 @@ namespace Sentence.Checker.UnitTests
         }
 
         [TestCase("I Like eating apples", "ilikeeatingapples", "ileap")]
-        [TestCase("I Like eating oranges", "ilikeeatingoranges", "iean")]
+        [TestCase("I Like eating oranges", "ilikeeatingoranges", "ieang")]
         public void CheckThatSentenceDoesNotContainDuplicates(string sentence, string formattedSentence, string expectedResult)
         {
-            _customSentenceFormatter.Setup(m => m.FormatWordsInSentence(It.IsAny<string>())).Returns(formattedSentence);
+            _customSentenceFormatter.Setup(m => m.FormatWordsInSentence(sentence)).Returns(formattedSentence);
 
             var result = _sentenceService.CheckForDuplicates(sentence);
 
-            StringAssert.Contains(expectedResult, result.Output);
+            Assert.That(result.Duplicates, Is.EqualTo(expectedResult));
         }
     }
 }
