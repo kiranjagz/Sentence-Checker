@@ -16,8 +16,7 @@ namespace Sentence.Checker.Core.Services
             _customSentenceFormatter = customSentenceFormatter;
         }
 
-
-        public ISentenceModel CheckForDuplicates(string sentence)
+        public SentenceModel CheckForDuplicates(string sentence)
         {
             var formattedSentence = _customSentenceFormatter.FormatWordsInSentence(sentence);
 
