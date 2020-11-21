@@ -20,8 +20,8 @@ namespace Sentence.Checker.UnitTests
             _sentenceService = new SentenceService(_customSentenceFormatter.Object);
         }
 
-        //[TestCase("I Like eating apples", "ilikeeatingapples", "ileap")]
-        //[TestCase("I Like eating oranges", "ilikeeatingoranges", "ieang")]
+        [TestCase("I Like eating apples", "ilikeeatingapples", "ileap")]
+        [TestCase("I Like eating oranges", "ilikeeatingoranges", "ieang")]
         [TestCase("abcd 4", "abcd4", "")]
         public void TestReturnLettersThatAreDuplicatesInASentence(string sentence, string formattedSentence, string expectedResult)
         {
@@ -42,6 +42,22 @@ namespace Sentence.Checker.UnitTests
             var result = _sentenceService.CountNumberOfVowels(sentence);
 
             Assert.That(result.VowelCount, Is.EqualTo(expectedResult));
+        }
+
+        [TestCase("I eat", "ieat", 3, 1)]
+        [TestCase("I eat grapes now", "ieatgrapesnow", 4, 7)]
+        [TestCase("Heya", "heya", 2, 2)]
+        public void TestNumberOfVowelsAgainstNonVowelsInASentence(string sentence, string formattedSentence, int expectedVowelsResult, int expectedNonVowelResult)
+        {
+            _customSentenceFormatter.Setup(m => m.FormatWordsInSentence(sentence)).Returns(formattedSentence);
+
+            var result = _sentenceService.CompareVowelsToNonVowels(sentence);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.VowelCount, Is.EqualTo(expectedVowelsResult));
+                Assert.That(result.NonVowelCount, Is.EqualTo(expectedNonVowelResult));
+            });          
         }
     }
 }

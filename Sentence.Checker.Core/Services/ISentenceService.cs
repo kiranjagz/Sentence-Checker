@@ -9,5 +9,6 @@ namespace Sentence.Checker.Core.Services
     {
         public DuplicatesModel CheckForDuplicates(string sentence);
         public VowelCountModel CountNumberOfVowels(string sentence);
+        public VowelComparerModel CompareVowelsToNonVowels(string sentence);
     }
 }

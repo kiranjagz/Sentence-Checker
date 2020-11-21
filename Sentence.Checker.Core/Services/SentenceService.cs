@@ -60,5 +60,29 @@ namespace Sentence.Checker.Core.Services
 
             return new VowelCountModel { Output = output , VowelCount = vowelCount };
         }
+
+        public VowelComparerModel CompareVowelsToNonVowels(string sentence)
+        {
+            string output = string.Empty;
+
+            var formattedSentence = _customSentenceFormatter.FormatWordsInSentence(sentence);
+
+            var group = formattedSentence.ToCharArray();
+
+            var interset = group.Intersect(_vowels);
+            var except = group.Except(_vowels);
+
+            var vowelCount = interset.Count();
+            var nonVowelCOunt = except.Count();
+
+            if (vowelCount > nonVowelCOunt)
+                output = "The text has more vowels than non vowels.";
+            else if (nonVowelCOunt > vowelCount)
+                output = "The text has more non vowels than vowels.";
+            else
+                output = "The text has an equal amount of vowels and non vowels.";
+
+            return new VowelComparerModel { Output = output, VowelCount = vowelCount, NonVowelCount = nonVowelCOunt };
+        }
     }
 }
