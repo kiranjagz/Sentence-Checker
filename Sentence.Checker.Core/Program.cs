@@ -24,23 +24,21 @@ namespace Sentence.Checker.Core
                     //This would be on startup ideally.
                     Dictionary<string, Action<string>> patternMapper = new Dictionary<string, Action<string>>
                     {
-                        ["1"] = x => { displayResults.CheckDuplicates(x); },
-                        ["2"] = x => { displayResults.CheckVowelCount(x); },
-                        ["3"] = x => { displayResults.CheckCompareVowelWithNonVowel(x); },
-                        ["12"] = x => { displayResults.CheckDuplicateAndCountOfVowels(x); },
-                        ["13"] = x => { displayResults.CheckDuplicateAndVowelComparer(x); },
-                        ["23"] = x => { displayResults.CheckVowelCountAndVowelComparer(x); },
-                        ["123"] = x => { displayResults.CheckAllConditions(x); }
+                        ["1"] = sentence => { displayResults.CheckDuplicates(sentence); },
+                        ["2"] = sentence => { displayResults.CheckVowelCount(sentence); },
+                        ["3"] = sentence => { displayResults.CheckCompareVowelWithNonVowel(sentence); },
+                        ["12"] = sentence => { displayResults.CheckDuplicateAndCountOfVowels(sentence); },
+                        ["13"] = sentence => { displayResults.CheckDuplicateAndVowelComparer(sentence); },
+                        ["23"] = sentence => { displayResults.CheckVowelCountAndVowelComparer(sentence); },
+                        ["123"] = sentence => { displayResults.CheckAllConditions(sentence); }
                     };
 
                     Console.WriteLine("Please enter text to be analyzed!");
-                    string sentence;
-                    sentence = Console.ReadLine();
+                    string sentence = Console.ReadLine();
 
                     while (string.IsNullOrEmpty(sentence))
                     {
                         Console.WriteLine("Not a valid sentence, try again please.");
-
                         sentence = Console.ReadLine();
                     }
 
@@ -49,10 +47,15 @@ namespace Sentence.Checker.Core
                     Console.WriteLine("'2', to count the number of vowels.");
                     Console.WriteLine("'3', to check if there are more vowels or non vowels.");
                     Console.WriteLine("Or any combination of '1','2','3', to perform multiple checks.");
-                    var option = Console.ReadLine();
+                    string option = Console.ReadLine();
 
-                    if (!string.IsNullOrEmpty(option))
-                        patternMapper[option](sentence);
+                    while (string.IsNullOrEmpty(option))
+                    {
+                        Console.WriteLine("Not a valid option, try again please.");
+                        option = Console.ReadLine();
+                    }
+
+                    patternMapper[option](sentence);
 
                     Console.WriteLine("========================================");
                 }
