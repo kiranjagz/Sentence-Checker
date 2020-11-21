@@ -9,14 +9,15 @@ namespace Sentence.Checker.Core.Display
     /// <summary>
     /// This is kind of a wrapper to perform extra logic based on selection
     /// </summary>
-    public class DisplayResults
+    public class DisplayResults : IDisplayResults
     {
         private ISentenceOperation _sentenceOperation;
-        private ICustomSentenceFormatter _customSentenceFormatter;
+        private List<ISentenceOperation> _sentenceOperationsList;
+        private readonly ICustomSentenceFormatter _customSentenceFormatter;
 
-        public DisplayResults()
+        public DisplayResults(ICustomSentenceFormatter customSentenceFormatter)
         {
-            _customSentenceFormatter = new CustomSentenceFormatter();
+            _customSentenceFormatter = customSentenceFormatter;
         }
 
         public void CheckDuplicates(string sentence)
@@ -38,6 +39,35 @@ namespace Sentence.Checker.Core.Display
             _sentenceOperation = new VowelComparerCheckOperation(_customSentenceFormatter);
 
             Console.WriteLine(_sentenceOperation.ValidateSentence(sentence));
+        }
+
+        public void CheckDuplicateAndCountOfVowels(string sentence)
+        {
+            _sentenceOperationsList = new List<ISentenceOperation>
+            {
+                new DuplicateCheckOperation(_customSentenceFormatter),
+                new VowelCountCheckOperation(_customSentenceFormatter)
+            };
+
+            _sentenceOperationsList.ForEach(sent =>
+            {
+                Console.WriteLine(sent.ValidateSentence(sentence));
+            });
+        }
+
+        public void CheckAllConditions(string sentence)
+        {
+            _sentenceOperationsList = new List<ISentenceOperation>
+            {
+                new DuplicateCheckOperation(_customSentenceFormatter),
+                new VowelCountCheckOperation(_customSentenceFormatter),
+                new VowelComparerCheckOperation(_customSentenceFormatter)
+            };
+
+            _sentenceOperationsList.ForEach(sent =>
+            {
+                Console.WriteLine(sent.ValidateSentence(sentence));
+            });
         }
     }
 }
