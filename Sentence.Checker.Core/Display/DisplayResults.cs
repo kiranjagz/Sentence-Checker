@@ -7,7 +7,8 @@ using System.Text;
 namespace Sentence.Checker.Core.Display
 {
     /// <summary>
-    /// This is kind of a wrapper to perform extra logic based on selection
+    /// This is kind of a wrapper to perform extra logic based on selection.
+    /// No tests written as these methods are void and not business logic.
     /// </summary>
     public class DisplayResults : IDisplayResults
     {
@@ -47,6 +48,34 @@ namespace Sentence.Checker.Core.Display
             {
                 new DuplicateCheckOperation(_customSentenceFormatter),
                 new VowelCountCheckOperation(_customSentenceFormatter)
+            };
+
+            _sentenceOperationsList.ForEach(sent =>
+            {
+                Console.WriteLine(sent.ValidateSentence(sentence));
+            });
+        }
+
+        public void CheckDuplicateAndVowelComparer(string sentence)
+        {
+            _sentenceOperationsList = new List<ISentenceOperation>
+            {
+                new DuplicateCheckOperation(_customSentenceFormatter),
+                new VowelComparerCheckOperation(_customSentenceFormatter)
+            };
+
+            _sentenceOperationsList.ForEach(sent =>
+            {
+                Console.WriteLine(sent.ValidateSentence(sentence));
+            });
+        }
+
+        public void CheckVowelCountAndVowelComparer(string sentence)
+        {
+            _sentenceOperationsList = new List<ISentenceOperation>
+            {
+                new VowelCountCheckOperation(_customSentenceFormatter),
+                new VowelComparerCheckOperation(_customSentenceFormatter)
             };
 
             _sentenceOperationsList.ForEach(sent =>

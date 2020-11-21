@@ -14,6 +14,10 @@ namespace Sentence.Checker.Core.Display
 
         public void CheckDuplicateAndCountOfVowels(string sentence);
 
+        public void CheckDuplicateAndVowelComparer(string sentence);
+
+        public void CheckVowelCountAndVowelComparer(string sentence);
+
         public void CheckAllConditions(string sentence);
     }
 }

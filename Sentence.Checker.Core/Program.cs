@@ -28,11 +28,21 @@ namespace Sentence.Checker.Core
                         ["2"] = x => { displayResults.CheckVowelCount(x); },
                         ["3"] = x => { displayResults.CheckCompareVowelWithNonVowel(x); },
                         ["12"] = x => { displayResults.CheckDuplicateAndCountOfVowels(x); },
+                        ["13"] = x => { displayResults.CheckDuplicateAndVowelComparer(x); },
+                        ["23"] = x => { displayResults.CheckVowelCountAndVowelComparer(x); },
                         ["123"] = x => { displayResults.CheckAllConditions(x); }
                     };
 
                     Console.WriteLine("Please enter text to be analyzed!");
-                    var sentence = Console.ReadLine();
+                    string sentence;
+                    sentence = Console.ReadLine();
+
+                    while (string.IsNullOrEmpty(sentence))
+                    {
+                        Console.WriteLine("Not a valid sentence, try again please.");
+
+                        sentence = Console.ReadLine();
+                    }
 
                     Console.WriteLine("Enter which operations to do on the supplied text!");
                     Console.WriteLine("'1', for a duplicate character check.");
@@ -42,9 +52,7 @@ namespace Sentence.Checker.Core
                     var option = Console.ReadLine();
 
                     if (!string.IsNullOrEmpty(option))
-                    {
                         patternMapper[option](sentence);
-                    }
 
                     Console.WriteLine("========================================");
                 }
