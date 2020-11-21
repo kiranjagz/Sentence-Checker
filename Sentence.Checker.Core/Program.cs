@@ -1,6 +1,8 @@
-﻿using Sentence.Checker.Core.Services;
+﻿using Sentence.Checker.Core.Display;
+using Sentence.Checker.Core.Services;
 using Sentence.Checker.Core.Services.CustomSentenceFormatter;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -12,12 +14,15 @@ namespace Sentence.Checker.Core
         {
             try
             {
-                //Need to use string builder here to concat, instead of string join
-                var output = new StringBuilder();
+                DisplayResults displayResults = new DisplayResults();
 
-                var customSentenceFormatter = new CustomSentenceFormatter();
-
-                var sentenceService = new SentenceService(customSentenceFormatter);
+                //Register a pattern mapper to match options based on selection, this is to eliminate the need for nested if statements or switch
+                Dictionary<string, Action<string>> patternMapper = new Dictionary<string, Action<string>>();
+                patternMapper["1"] = x => { displayResults.CheckDuplicates(x); };
+                patternMapper["2"] = x => { displayResults.CheckVowelCount(x); };
+                patternMapper["3"] = x => { displayResults.CheckCompareVowelWithNonVowel(x); };
+                patternMapper["12"] = x => { displayResults.CheckCompareVowelWithNonVowel(x); };
+                patternMapper["123"] = x => { displayResults.CheckCompareVowelWithNonVowel(x); };
 
                 Console.WriteLine("Please enter text to be analyzed!");
                 var sentence = Console.ReadLine();
@@ -27,51 +32,17 @@ namespace Sentence.Checker.Core
                 Console.WriteLine("'2', to count the number of vowels.");
                 Console.WriteLine("'3', to check if there are more vowels or non vowels.");
                 Console.WriteLine("Or any combination of '1','2','3', to perform multiple checks.");
-                var option = Console.ReadLine();
+                var option = Console.ReadLine();          
 
-                //Wrap this in a selection service, and create some tests for them
-                switch (option)
+                if (!string.IsNullOrEmpty(option))
                 {
-                    case "1":
-                        {
-                            var duplicateResult = sentenceService.CheckForDuplicates(sentence);
-                            output.AppendLine(duplicateResult.Output);
-                            break;
-                        };
-                    case "2":
-                        {
-                            var numberVowelsResult = sentenceService.CountNumberOfVowels(sentence);
-                            output.AppendLine(numberVowelsResult.Output);
-                            break;
-                        };
-                    case "3":
-                        {
-                            var compareVowelsResult = sentenceService.CompareVowelsToNonVowels(sentence);
-                            output.AppendLine(compareVowelsResult.Output);
-                            break;
-                        };
-                    case "12":
-                        {
-                            var duplicateResult = sentenceService.CheckForDuplicates(sentence);
-                            var numberVowelsResult = sentenceService.CountNumberOfVowels(sentence);
-                            output.AppendLine(duplicateResult.Output);
-                            output.AppendLine(numberVowelsResult.Output);
-                            break;
-                        };
-                    default:
-                        {
-                            output.AppendLine("Oops the selection was invalid??");
-                            break;
-                        }
-                };
-                
-                Console.WriteLine(output);
-                
+                    patternMapper[option](sentence);
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error has occurred, error message: {ex.Message}");
-         
+
             }
 
             Console.Read();

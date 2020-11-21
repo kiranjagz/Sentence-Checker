@@ -5,4 +5,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Services\Model\**" />
+    <EmbeddedResource Remove="Services\Model\**" />
+    <None Remove="Services\Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\SentenceService.cs" />
+  </ItemGroup>
+
 </Project>

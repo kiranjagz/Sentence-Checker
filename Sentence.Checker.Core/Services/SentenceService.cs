@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sentence.Checker.Core.Services
 {
-    public class SentenceService : ISentenceService
+    public class SentenceService
     {
         private ICustomSentenceFormatter _customSentenceFormatter;
         private char[] _vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
