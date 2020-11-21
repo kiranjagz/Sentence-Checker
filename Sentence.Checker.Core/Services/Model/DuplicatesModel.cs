@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Sentence.Checker.Core.Services.Model
 {
-    public interface ISentenceModel
+    public class DuplicatesModel : SentenceModel
     {
-        public string Output { get; }
+        public string Duplicates { get; set; }
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Sentence.Checker.Core.Services.Model
 {
-    public abstract class SentenceModel
+    public class VowelCountModel : SentenceModel
     {
-        public string Output { get; set; }
+        public int VowelCount { get; set; }
     }
 }

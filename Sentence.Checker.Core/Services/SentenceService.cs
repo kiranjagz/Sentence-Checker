@@ -10,13 +10,14 @@ namespace Sentence.Checker.Core.Services
     public class SentenceService : ISentenceService
     {
         private ICustomSentenceFormatter _customSentenceFormatter;
+        private char[] _vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
 
         public SentenceService(ICustomSentenceFormatter customSentenceFormatter)
         {
             _customSentenceFormatter = customSentenceFormatter;
         }
 
-        public SentenceModel CheckForDuplicates(string sentence)
+        public DuplicatesModel CheckForDuplicates(string sentence)
         {
             var formattedSentence = _customSentenceFormatter.FormatWordsInSentence(sentence);
 
@@ -26,7 +27,27 @@ namespace Sentence.Checker.Core.Services
 
             var duplicateLetters = string.Join("", duplicatesInArray);
 
-            return new SentenceModel { Output = $"Found the following duplicates: {duplicateLetters}", Duplicates = duplicateLetters };
+            return new DuplicatesModel { Output = $"Found the following duplicates: {duplicateLetters}", Duplicates = duplicateLetters };
+        }
+
+        public VowelCountModel CountNumberOfVowels(string sentence)
+        {
+            string output;
+
+            var formattedSentence = _customSentenceFormatter.FormatWordsInSentence(sentence);
+
+            var group = formattedSentence.ToCharArray();
+
+            var interset = group.Intersect(_vowels);
+
+            var vowelCount = interset.Count();
+
+            if (vowelCount > 0)
+                output = $"The number of vowels is: {vowelCount}";
+            else
+                output = $"No vowels where found";
+
+            return new VowelCountModel { Output = output , VowelCount = vowelCount };
         }
     }
 }

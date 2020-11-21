@@ -7,6 +7,7 @@ namespace Sentence.Checker.Core.Services
 {
     public interface ISentenceService
     {
-        public SentenceModel CheckForDuplicates(string sentence);
+        public DuplicatesModel CheckForDuplicates(string sentence);
+        public VowelCountModel CountNumberOfVowels(string sentence);
     }
 }

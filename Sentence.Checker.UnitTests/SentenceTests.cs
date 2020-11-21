@@ -7,7 +7,7 @@ namespace Sentence.Checker.UnitTests
 {
     public class SentenceTests
     {
-        // I added the custom sentence logic to display test cases using moqs, and the the use of Ioc principle.
+        // I added the custom sentence logic for removing spaces and to lower the casing, also to display test cases using moqs, and the the use of IoC principle.
         // Sorry if this is overkill.
         private Mock<ICustomSentenceFormatter> _customSentenceFormatter;
         private ISentenceService _sentenceService;
@@ -29,6 +29,18 @@ namespace Sentence.Checker.UnitTests
             var result = _sentenceService.CheckForDuplicates(sentence);
 
             Assert.That(result.Duplicates, Is.EqualTo(expectedResult));
+        }
+
+        [TestCase("I Like eating apples", "ilikeeatingapples", 3)]
+        [TestCase("I Like eating oranges", "ilikeeatingoranges", 4)]
+        [TestCase("jkl kkjh", "jklkkjh", 0)]
+        public void TestNumberOfVowelsInASentence(string sentence, string formattedSentence, int expectedResult)
+        {
+            _customSentenceFormatter.Setup(m => m.FormatWordsInSentence(sentence)).Returns(formattedSentence);
+
+            var result = _sentenceService.CountNumberOfVowels(sentence);
+
+            Assert.That(result.VowelCount, Is.EqualTo(expectedResult));
         }
     }
 }
