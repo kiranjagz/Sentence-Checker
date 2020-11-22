@@ -30,6 +30,7 @@ namespace Sentence.Checker.UnitTests
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
+        [TestCase("that dog", "The text has more non vowels than vowels.")]
         [TestCase("I eat grapes now", "The text has more non vowels than vowels.")]
         public void TestSentenceHasMoreNonVowelsThanVowels(string sentence, string expectedResult)
         {
@@ -38,7 +39,7 @@ namespace Sentence.Checker.UnitTests
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-
+        [TestCase("3 a", "The text has an equal amount of vowels and non vowels.")]
         [TestCase("Heya", "The text has an equal amount of vowels and non vowels.")]
         public void TestEqualNumberOfVowelsAndNonVowels(string sentence, string expectedResult)
         {

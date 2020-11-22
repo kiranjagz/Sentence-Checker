@@ -24,6 +24,7 @@ namespace Sentence.Checker.UnitTests
 
         [TestCase("I Like eating apples", "The number of vowels is: 3")]
         [TestCase("I Like eating oranges", "The number of vowels is: 4")]
+        [TestCase("I enjoy problem solving", "The number of vowels is: 3")]
         public void TestNumberOfVowelsInASentenceReturnCountInOutput(string sentence, string expectedResult)
         {
             var result = _sentenceService.ValidateSentence(sentence);
@@ -32,6 +33,8 @@ namespace Sentence.Checker.UnitTests
         }
 
         [TestCase("jkl kkjh", "No vowels where found.")]
+        [TestCase("sqwrrrrrrrrr88881111", "No vowels where found.")]
+        [TestCase("1234567890", "No vowels where found.")]
         public void TestSentenceWithNoVowelsReturnNoVowelsOutput(string sentence, string expectedResult)
         {
             var result = _sentenceService.ValidateSentence(sentence);

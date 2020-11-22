@@ -25,6 +25,7 @@ namespace Sentence.Checker.UnitTests
         [TestCase("I Like eating apples", "Found the following duplicates: ileap")]
         [TestCase("I Like eating oranges", "Found the following duplicates: ieang")]
         [TestCase("abcdee 5", "Found the following duplicates: e")]
+        [TestCase("abcdee 55", "Found the following duplicates: e5")]
         public void TestReturnCharInOutputThatContainDuplicatesInASentence(string sentence, string expectedResult)
         {
             var result = _sentenceService.ValidateSentence(sentence);

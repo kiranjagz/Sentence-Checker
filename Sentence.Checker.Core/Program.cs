@@ -20,7 +20,7 @@ namespace Sentence.Checker.Core
                     ICustomSentenceFormatter customSentenceFormatter = new CustomSentenceFormatter();
                     IDisplayResults displayResults = new DisplayResults(customSentenceFormatter);
 
-                    //Register a pattern mapper to match options based on selection, this is to eliminate the need for nested if statements or switch.
+                    //Register a pattern mapper to match options based on selection, key maps to an action, this is to eliminate the need for nested if statements or switch case.
                     //This would be on startup ideally.
                     Dictionary<string, Action<string>> patternMapper = new Dictionary<string, Action<string>>
                     {
