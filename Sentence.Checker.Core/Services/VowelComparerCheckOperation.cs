@@ -8,7 +8,7 @@ namespace Sentence.Checker.Core.Services
 {
     public class VowelComparerCheckOperation : ISentenceOperation
     {
-        private ICustomSentenceFormatter _customSentenceFormatter;
+        private readonly ICustomSentenceFormatter _customSentenceFormatter;
         private readonly char[] _vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
         public VowelComparerCheckOperation(ICustomSentenceFormatter customSentenceFormatter)
         {

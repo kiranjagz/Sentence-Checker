@@ -8,7 +8,7 @@ namespace Sentence.Checker.Core.Services
 {
     public class DuplicateCheckOperation : ISentenceOperation
     {
-        private ICustomSentenceFormatter _customSentenceFormatter;
+        private readonly ICustomSentenceFormatter _customSentenceFormatter;
         public DuplicateCheckOperation(ICustomSentenceFormatter customSentenceFormatter)
         {
             _customSentenceFormatter = customSentenceFormatter;

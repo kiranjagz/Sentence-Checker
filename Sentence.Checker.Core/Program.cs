@@ -1,10 +1,6 @@
-﻿using Sentence.Checker.Core.Display;
-using Sentence.Checker.Core.Services;
+﻿using Sentence.Checker.Core.Extensions;
 using Sentence.Checker.Core.Services.CustomSentenceFormatter;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Sentence.Checker.Core
 {
@@ -16,25 +12,15 @@ namespace Sentence.Checker.Core
             {
                 while (true)
                 {
-                    //We would register this in our IoC framework, should you use one.
-                    ICustomSentenceFormatter customSentenceFormatter = new CustomSentenceFormatter();
-                    IDisplayResults displayResults = new DisplayResults(customSentenceFormatter);
+                    var customSentenceFormatter = new CustomSentenceFormatter();
 
-                    //Register a pattern mapper to match options based on selection, key maps to an action, this is to eliminate the need for nested if statements or switch case.
-                    //This would be on startup ideally.
-                    Dictionary<string, Action<string>> patternMapper = new Dictionary<string, Action<string>>
-                    {
-                        ["1"] = sentence => { displayResults.CheckDuplicates(sentence); },
-                        ["2"] = sentence => { displayResults.CheckVowelCount(sentence); },
-                        ["3"] = sentence => { displayResults.CheckCompareVowelWithNonVowel(sentence); },
-                        ["12"] = sentence => { displayResults.CheckDuplicateAndCountOfVowels(sentence); },
-                        ["13"] = sentence => { displayResults.CheckDuplicateAndVowelComparer(sentence); },
-                        ["23"] = sentence => { displayResults.CheckVowelCountAndVowelComparer(sentence); },
-                        ["123"] = sentence => { displayResults.CheckAllConditions(sentence); }
-                    };
+                    //Registered a pattern mapper to match options based on selection, key maps to sentence operations.
+                    //This is to eliminate the need for nested if statements or switch case.
+                    //This would be on startup ideally, and using an IoC framework.
+                    var strategyPattern = StrategyPatternMapperExtension.CreateStrategyMapper(customSentenceFormatter);
 
                     Console.WriteLine("Please enter text to be analyzed!");
-                    string sentence = Console.ReadLine();
+                    var sentence = Console.ReadLine();
 
                     while (string.IsNullOrEmpty(sentence))
                     {
@@ -47,7 +33,7 @@ namespace Sentence.Checker.Core
                     Console.WriteLine("'2', to count the number of vowels.");
                     Console.WriteLine("'3', to check if there are more vowels or non vowels.");
                     Console.WriteLine("Or any combination of '1','2','3', to perform multiple checks.");
-                    string option = Console.ReadLine();
+                    var option = Console.ReadLine();
 
                     while (string.IsNullOrEmpty(option))
                     {
@@ -55,7 +41,7 @@ namespace Sentence.Checker.Core
                         option = Console.ReadLine();
                     }
 
-                    patternMapper[option](sentence);
+                    strategyPattern[option].Invoke(sentence);
 
                     Console.WriteLine("========================================");
                 }
