@@ -41,7 +41,16 @@ namespace Sentence.Checker.Core
                         option = Console.ReadLine();
                     }
 
-                    strategyPattern[option].Invoke(sentence);
+                    var optionArray = option.ToCharArray();
+
+                    foreach (var item in optionArray)
+                    {
+                        var value = int.Parse(item.ToString());
+
+                        var result = strategyPattern[value].ValidateSentence(sentence);
+
+                        Console.WriteLine(result);
+                    }
 
                     Console.WriteLine("========================================");
                 }
