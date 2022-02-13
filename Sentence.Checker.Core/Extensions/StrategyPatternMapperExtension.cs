@@ -8,14 +8,12 @@ namespace Sentence.Checker.Core.Extensions
     {
         public static Dictionary<int, ISentenceOperation> CreateStrategyMapper(ICustomSentenceFormatter customSentenceFormatter)
         {
-            var strategyPattern = new Dictionary<int, ISentenceOperation>
+            return new Dictionary<int, ISentenceOperation>
             {
                 { 1, new DuplicateCheckOperation(customSentenceFormatter) },
                 { 2, new VowelCountCheckOperation(customSentenceFormatter) },
                 { 3, new VowelComparerCheckOperation(customSentenceFormatter) }
             };
-
-            return strategyPattern;
         }
     }
 }

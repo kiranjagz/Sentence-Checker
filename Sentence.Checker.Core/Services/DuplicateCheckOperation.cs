@@ -20,9 +20,14 @@ namespace Sentence.Checker.Core.Services
 
             var formattedSentence = _customSentenceFormatter.FormatWordsInSentence(sentence);
 
-            var group = formattedSentence.ToCharArray().GroupBy(p => p);
+            var group = formattedSentence
+                .ToCharArray()
+                .GroupBy(p => p);
 
-            var duplicatesInArray = group.Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+            var duplicatesInArray = group
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
 
             if (duplicatesInArray.Count > 0)
             {
