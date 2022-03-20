@@ -9,10 +9,12 @@ namespace Sentence.Checker.Core.Services
     public class DuplicateCheckOperation : ISentenceOperation
     {
         private readonly ICustomSentenceFormatter _customSentenceFormatter;
+
         public DuplicateCheckOperation(ICustomSentenceFormatter customSentenceFormatter)
         {
             _customSentenceFormatter = customSentenceFormatter;
         }
+
         public string ValidateSentence(string sentence)
         {
             string output;

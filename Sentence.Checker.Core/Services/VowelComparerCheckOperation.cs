@@ -10,6 +10,7 @@ namespace Sentence.Checker.Core.Services
     {
         private readonly ICustomSentenceFormatter _customSentenceFormatter;
         private readonly char[] _vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+
         public VowelComparerCheckOperation(ICustomSentenceFormatter customSentenceFormatter)
         {
             _customSentenceFormatter = customSentenceFormatter;
@@ -24,9 +25,11 @@ namespace Sentence.Checker.Core.Services
             var group = formattedSentence.ToCharArray();
 
             var interset = group.Intersect(_vowels);
+
             var except = group.Except(_vowels);
 
             var vowelCount = interset.Count();
+
             var nonVowelCOunt = except.Count();
 
             if (vowelCount > nonVowelCOunt)

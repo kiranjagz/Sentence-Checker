@@ -10,6 +10,7 @@ namespace Sentence.Checker.Core.Services
     {
         private readonly ICustomSentenceFormatter _customSentenceFormatter;
         private readonly char[] _vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+
         public VowelCountCheckOperation(ICustomSentenceFormatter customSentenceFormatter)
         {
             _customSentenceFormatter = customSentenceFormatter;
