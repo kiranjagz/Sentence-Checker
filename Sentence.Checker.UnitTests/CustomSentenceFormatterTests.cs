@@ -59,6 +59,7 @@ namespace Sentence.Checker.UnitTests
         //Use moq framework
         [TestCase("Interface created first with no body", "interfacecreatedfirstwithnobody")]
         [TestCase("I am using moq to check behaviour", "iamusingmoqtocheckbehavour")]
+        [TestCase("What is your name", "whatisyourname")]
         public void TestBehaviourNoSpaceLowerCaseUsingMoq(string sentence, string expectedResult)
         {
             _mockSentenceFormatter.Setup(sent => sent.FormatWordsInSentence(sentence)).Returns(expectedResult);
