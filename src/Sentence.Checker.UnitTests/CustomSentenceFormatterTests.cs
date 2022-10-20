@@ -22,7 +22,7 @@ namespace Sentence.Checker.UnitTests
             _mockSentenceFormatter = new Mock<ICustomSentenceFormatter>(MockBehavior.Default);
         }
 
-        [TestCase("I like eating apples", "ilikeeatingapples1")]
+        [TestCase("I like eating apples", "ilikeeatingapples")]
         [TestCase("I like eating oranges", "ilikeeatingoranges")]
         public void TestASentenceHasNoSpacesAndInLowerCase(string sentence, string expectedResult)
         {
