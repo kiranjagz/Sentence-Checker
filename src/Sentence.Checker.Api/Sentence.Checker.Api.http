@@ -1,0 +1,11 @@
+﻿@Sentence.Checker.Api_HostAddress = https://localhost:7192
+
+POST {{Sentence.Checker.Api_HostAddress}}/sentence
+Content-Type: application/json
+
+{
+  "sentence":"walk dog",
+  "options":"123"
+}
+
+###
